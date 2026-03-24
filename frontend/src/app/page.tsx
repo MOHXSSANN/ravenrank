@@ -6,6 +6,8 @@ import { ProfessorsSection } from "@/components/home/professors-section";
 import { dbAll, dbGet } from "@/lib/db";
 import type { GradeDistribution } from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 async function getStats() {
   const courses = await dbGet<{ count: number }>("SELECT COUNT(*) as count FROM courses");
   const professors = await dbGet<{ count: number }>("SELECT COUNT(*) as count FROM professors");

@@ -1,6 +1,8 @@
 import { dbAll } from "@/lib/db";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const [courses, professors, subjects] = await Promise.all([
     dbAll<{ code: string; title: string; subject_code: string; credits: number }>(

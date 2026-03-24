@@ -2,6 +2,8 @@ import { getAllSubjects } from "@/lib/queries";
 import Link from "next/link";
 import type { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "All Subjects",
   description: "Browse all academic subjects at Carleton University.",

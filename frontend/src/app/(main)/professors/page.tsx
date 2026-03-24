@@ -2,6 +2,8 @@ import { dbAll } from "@/lib/db";
 import { ProfessorsList } from "./professors-list";
 import type { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Professors",
   description: "Browse all Carleton University professors with RateMyProfessors ratings.",
