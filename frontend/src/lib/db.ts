@@ -6,35 +6,45 @@ let client: Client | null = null;
 function getClient(): Client {
   if (!client) {
     if (process.env.TURSO_DATABASE_URL) {
-      // Production: connect to Turso
       client = createClient({
         url: process.env.TURSO_DATABASE_URL,
         authToken: process.env.TURSO_AUTH_TOKEN,
-        intMode: "number",
+        intMode: "bigint",
       });
     } else {
-      // Local dev: use SQLite file
       const dbPath = path.join(process.cwd(), "..", "scraper", "data", "ravenrank.db");
       client = createClient({
         url: `file:${dbPath}`,
-        intMode: "number",
+        intMode: "bigint",
       });
     }
   }
   return client;
 }
 
-// Synchronous-style wrapper for server components
-// @libsql/client execute() is async, so we need helpers
+// Convert BigInt values to numbers (safe) or strings (unsafe) in row objects
+function coerceRow(row: Row): Row {
+  const out: any = {};
+  for (const [key, val] of Object.entries(row)) {
+    if (typeof val === "bigint") {
+      out[key] = Number.isSafeInteger(Number(val)) ? Number(val) : String(val);
+    } else {
+      out[key] = val;
+    }
+  }
+  return out;
+}
 
 export async function dbAll<T = Row>(sql: string, args: any[] = []): Promise<T[]> {
-  const result = await getClient().execute({ sql, args });
-  return result.rows as unknown as T[];
+  const coercedArgs = args.map(a => typeof a === "bigint" ? Number(a) : a);
+  const result = await getClient().execute({ sql, args: coercedArgs });
+  return result.rows.map(coerceRow) as unknown as T[];
 }
 
 export async function dbGet<T = Row>(sql: string, args: any[] = []): Promise<T | undefined> {
-  const result = await getClient().execute({ sql, args });
-  return result.rows[0] as unknown as T | undefined;
+  const coercedArgs = args.map(a => typeof a === "bigint" ? Number(a) : a);
+  const result = await getClient().execute({ sql, args: coercedArgs });
+  return result.rows[0] ? coerceRow(result.rows[0]) as unknown as T : undefined;
 }
 
 // Type definitions matching our schema
