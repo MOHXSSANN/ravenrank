@@ -10,12 +10,14 @@ function getClient(): Client {
       client = createClient({
         url: process.env.TURSO_DATABASE_URL,
         authToken: process.env.TURSO_AUTH_TOKEN,
+        intMode: "number",
       });
     } else {
       // Local dev: use SQLite file
       const dbPath = path.join(process.cwd(), "..", "scraper", "data", "ravenrank.db");
       client = createClient({
         url: `file:${dbPath}`,
+        intMode: "number",
       });
     }
   }
