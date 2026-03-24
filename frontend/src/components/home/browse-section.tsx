@@ -31,10 +31,10 @@ function computeMean(grades: GradeDistribution | null): { letter: Letter; total:
 
 export function BrowseSection({ subjects }: { subjects: SubjectWithGrades[] }) {
   return (
-    <section className="py-24 px-6 md:px-12">
+    <section className="py-16 md:py-24 px-4 md:px-12">
       <div className="max-w-[1400px] mx-auto">
-        <div className="mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
+        <div className="mb-8 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter">
             Browse subjects
           </h2>
           <p className="mt-3 text-muted-foreground max-w-[55ch]">
@@ -50,7 +50,7 @@ export function BrowseSection({ subjects }: { subjects: SubjectWithGrades[] }) {
               <Link
                 key={subject.code}
                 href={`/subject/${subject.code}`}
-                className="group bg-background p-6 hover:bg-secondary/30 transition-colors duration-200"
+                className="group bg-background p-4 sm:p-6 hover:bg-secondary/30 transition-colors duration-200"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">

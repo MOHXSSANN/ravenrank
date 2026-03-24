@@ -113,13 +113,13 @@ export default async function CoursePage({ params }: { params: { code: string } 
             {subject.title} ({subject.code})
           </Link>
         )}
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tighter leading-none mt-2">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-none mt-2">
           {displayCode}
         </h1>
-        <p className="text-lg text-muted-foreground mt-2 max-w-[65ch]" style={{ textWrap: "balance" } as any}>
+        <p className="text-base sm:text-lg text-muted-foreground mt-2 max-w-[65ch]" style={{ textWrap: "balance" } as any}>
           {course.title}
         </p>
-        <div className="flex items-center gap-6 mt-4 text-sm text-muted-foreground">
+        <div className="flex items-center gap-4 sm:gap-6 mt-4 text-sm text-muted-foreground">
           <span className="font-mono">{course.credits} credits</span>
           {stats && (
             <span className="font-mono">{stats.total.toLocaleString()} students</span>
@@ -128,7 +128,7 @@ export default async function CoursePage({ params }: { params: { code: string } 
       </div>
 
       {/* Two-column layout: grades left, info right */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12 mb-12">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 lg:gap-12 mb-12">
         {/* Left: Grade distribution */}
         <div>
           {stats && aggregateGrades && (
@@ -227,23 +227,23 @@ export default async function CoursePage({ params }: { params: { code: string } 
           {sections.map((section: any) => {
             const sectionStats = section.grades ? computeStats(section.grades) : null;
             return (
-              <div key={section.id} className="py-5">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <span className="font-medium tracking-tight">
+              <div key={section.id} className="py-4 sm:py-5">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 min-w-0">
+                    <span className="font-medium tracking-tight text-sm sm:text-base">
                       {termIdToString(section.term_id)}
                     </span>
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-xs sm:text-sm text-muted-foreground">
                       Section {section.section}
                     </span>
                     {section.professors?.length > 0 && (
-                      <span className="text-sm text-muted-foreground">
+                      <span className="text-xs sm:text-sm text-muted-foreground truncate max-w-[200px] sm:max-w-none">
                         {section.professors.map((p: any) => p.name).join(", ")}
                       </span>
                     )}
                   </div>
                   {sectionStats && (
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 sm:gap-3">
                       <span className={`px-2 py-0.5 rounded text-xs font-medium ${Grade.badgeColor(sectionStats.mean)}`}>
                         {sectionStats.mean}
                       </span>

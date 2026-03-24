@@ -46,7 +46,7 @@ export default async function SubjectPage({ params }: { params: { code: string }
         <p className="text-sm font-medium tracking-wider uppercase text-raven mb-3">
           {subject.code}
         </p>
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tighter leading-none">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-none">
           {subject.title}
         </h1>
         <div className="flex items-center gap-4 mt-4 text-sm text-muted-foreground">
@@ -66,30 +66,30 @@ export default async function SubjectPage({ params }: { params: { code: string }
             <Link
               key={course.code}
               href={`/course/${course.code}`}
-              className="flex items-center justify-between py-5 group transition-colors duration-200"
+              className="flex items-center justify-between py-4 sm:py-5 gap-3 group transition-colors duration-200"
             >
-              <div>
+              <div className="min-w-0">
                 <div className="font-semibold tracking-tight group-hover:text-raven transition-colors duration-200">
                   {course.code.replace(/(\D+)(\d+)/, "$1 $2")}
                 </div>
-                <div className="text-sm text-muted-foreground mt-0.5">
+                <div className="text-sm text-muted-foreground mt-0.5 truncate">
                   {course.title}
                 </div>
               </div>
-              <div className="flex items-center gap-4 shrink-0">
+              <div className="flex items-center gap-2 sm:gap-4 shrink-0">
                 {stats && (
                   <>
                     <span
-                      className={`px-2.5 py-1 rounded-md text-xs font-medium ${Grade.badgeColor(stats.mean)}`}
+                      className={`px-2 sm:px-2.5 py-1 rounded-md text-xs font-medium ${Grade.badgeColor(stats.mean)}`}
                     >
-                      Avg: {stats.mean}
+                      {stats.mean}
                     </span>
-                    <span className="text-xs text-muted-foreground font-mono">
+                    <span className="text-xs text-muted-foreground font-mono hidden sm:inline">
                       {stats.total.toLocaleString()} students
                     </span>
                   </>
                 )}
-                <span className="text-xs text-muted-foreground font-mono">
+                <span className="text-xs text-muted-foreground font-mono hidden sm:inline">
                   {course.credits} cr
                 </span>
               </div>

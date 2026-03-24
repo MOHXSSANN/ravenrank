@@ -201,10 +201,10 @@ export function ScrollVideoSection() {
                   <p className="text-xs font-mono tracking-widest uppercase text-raven/70 mb-4">
                     0{i + 1} / 0{SECTIONS.length}
                   </p>
-                  <h2 className="text-3xl md:text-5xl font-bold tracking-tighter leading-none text-foreground">
+                  <h2 className="text-xl sm:text-3xl md:text-5xl font-bold tracking-tighter leading-none text-foreground">
                     {section.title}
                   </h2>
-                  <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed max-w-[50ch]">
+                  <p className="mt-3 text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-[50ch]">
                     {section.description}
                   </p>
                 </div>

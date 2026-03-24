@@ -52,11 +52,11 @@ export function HeroSection({ stats }: HeroSectionProps) {
       {/* Centered content */}
       <div className="relative z-10 max-w-[800px] mx-auto px-6 text-center">
         <div className="hero-fade-up-delay-1">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-none drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-none drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
             <span className="text-raven">Raven</span>
             <span className="text-foreground">Rank</span>
           </h1>
-          <p className="mt-5 text-lg md:text-xl text-foreground/90 leading-relaxed max-w-[55ch] mx-auto drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
+          <p className="mt-4 text-sm sm:text-lg md:text-xl text-foreground/90 leading-relaxed max-w-[55ch] mx-auto drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
             Explore Carleton University grade distributions, professor ratings,
             and course data across {stats.courses.toLocaleString()} courses.
           </p>

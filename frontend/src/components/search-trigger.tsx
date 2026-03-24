@@ -12,7 +12,7 @@ export function SearchTrigger() {
     >
       <Search className="w-3.5 h-3.5 shrink-0" strokeWidth={1.5} />
       <span className="flex-1 text-left">Search courses, professors...</span>
-      <kbd className="text-[10px] text-muted-foreground/60 font-mono shrink-0">
+      <kbd className="text-[10px] text-muted-foreground/60 font-mono shrink-0 hidden sm:block">
         ⌘K
       </kbd>
     </button>

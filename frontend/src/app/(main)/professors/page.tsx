@@ -35,7 +35,7 @@ export default async function ProfessorsPage() {
   return (
     <div>
       <div className="mb-10">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tighter leading-none">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-none">
           Professors
         </h1>
         <p className="mt-3 text-muted-foreground">

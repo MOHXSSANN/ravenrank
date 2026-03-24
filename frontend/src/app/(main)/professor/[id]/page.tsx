@@ -70,7 +70,7 @@ export default async function ProfessorPage({ params }: { params: { id: string }
     <div>
       {/* Header */}
       <div className="mb-10">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tighter leading-none">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-none">
           {professor.name}
         </h1>
         {rmp?.department && (
@@ -83,8 +83,8 @@ export default async function ProfessorPage({ params }: { params: { id: string }
         <div className="mb-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border/40 rounded-xl overflow-hidden border border-border/40">
             {/* Quality / Rating */}
-            <div className="bg-background p-5">
-              <div className={`text-3xl font-bold font-mono tracking-tight ${ratingColor(rmp.rating || 0)}`}>
+            <div className="bg-background p-4 sm:p-5">
+              <div className={`text-2xl sm:text-3xl font-bold font-mono tracking-tight ${ratingColor(rmp.rating || 0)}`}>
                 {rmp.rating?.toFixed(1) || "N/A"}
               </div>
               <div className="text-xs text-muted-foreground tracking-wider uppercase mt-1">
@@ -94,8 +94,8 @@ export default async function ProfessorPage({ params }: { params: { id: string }
             </div>
 
             {/* Difficulty */}
-            <div className="bg-background p-5">
-              <div className={`text-3xl font-bold font-mono tracking-tight ${difficultyColor(rmp.difficulty || 0)}`}>
+            <div className="bg-background p-4 sm:p-5">
+              <div className={`text-2xl sm:text-3xl font-bold font-mono tracking-tight ${difficultyColor(rmp.difficulty || 0)}`}>
                 {rmp.difficulty?.toFixed(1) || "N/A"}
               </div>
               <div className="text-xs text-muted-foreground tracking-wider uppercase mt-1">
@@ -105,8 +105,8 @@ export default async function ProfessorPage({ params }: { params: { id: string }
             </div>
 
             {/* Would Take Again */}
-            <div className="bg-background p-5">
-              <div className={`text-3xl font-bold font-mono tracking-tight ${
+            <div className="bg-background p-4 sm:p-5">
+              <div className={`text-2xl sm:text-3xl font-bold font-mono tracking-tight ${
                 wouldTakeAgain && wouldTakeAgain >= 0
                   ? wouldTakeAgain >= 70 ? "text-green-400" : wouldTakeAgain >= 50 ? "text-yellow-400" : "text-red-400"
                   : "text-muted-foreground"
@@ -121,8 +121,8 @@ export default async function ProfessorPage({ params }: { params: { id: string }
             </div>
 
             {/* Number of Ratings */}
-            <div className="bg-background p-5">
-              <div className="text-3xl font-bold font-mono tracking-tight text-foreground">
+            <div className="bg-background p-4 sm:p-5">
+              <div className="text-2xl sm:text-3xl font-bold font-mono tracking-tight text-foreground">
                 {rmp.num_ratings || 0}
               </div>
               <div className="text-xs text-muted-foreground tracking-wider uppercase mt-1">
@@ -184,22 +184,22 @@ export default async function ProfessorPage({ params }: { params: { id: string }
             <Link
               key={course.code}
               href={`/course/${course.code}`}
-              className="flex items-center justify-between py-5 group transition-colors duration-200"
+              className="flex items-center justify-between py-4 sm:py-5 gap-3 group transition-colors duration-200"
             >
-              <div>
+              <div className="min-w-0">
                 <div className="font-semibold tracking-tight group-hover:text-raven transition-colors duration-200">
                   {displayCode}
                 </div>
-                <div className="text-sm text-muted-foreground mt-0.5">
+                <div className="text-sm text-muted-foreground mt-0.5 truncate">
                   {course.title}
                 </div>
               </div>
               {stats && (
-                <div className="flex items-center gap-4 shrink-0">
-                  <span className={`px-2.5 py-1 rounded-md text-xs font-medium ${Grade.badgeColor(stats.mean)}`}>
-                    Avg: {stats.mean}
+                <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+                  <span className={`px-2 sm:px-2.5 py-1 rounded-md text-xs font-medium ${Grade.badgeColor(stats.mean)}`}>
+                    {stats.mean}
                   </span>
-                  <span className="text-xs text-muted-foreground font-mono">
+                  <span className="text-xs text-muted-foreground font-mono hidden sm:inline">
                     {stats.total.toLocaleString()} students
                   </span>
                 </div>

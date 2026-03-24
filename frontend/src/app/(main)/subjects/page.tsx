@@ -23,7 +23,7 @@ export default async function SubjectsPage() {
   return (
     <div>
       <div className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tighter leading-none">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-none">
           All subjects
         </h1>
         <p className="text-muted-foreground mt-3 max-w-[50ch]">
@@ -39,7 +39,7 @@ export default async function SubjectsPage() {
               <h2 className="text-xs font-medium tracking-wider uppercase text-raven mb-4 pb-2 border-b border-border">
                 {letter}
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-lg overflow-hidden">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px bg-border rounded-lg overflow-hidden">
                 {subjectList.map((subject) => (
                   <Link
                     key={subject.code}

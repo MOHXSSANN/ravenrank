@@ -167,7 +167,7 @@ export function GradeComparison({
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <div className="mt-4 p-6 rounded-lg border border-border bg-card">
+            <div className="mt-4 p-4 sm:p-6 rounded-lg border border-border bg-card">
               <h3 className="text-lg font-semibold mb-4">
                 Grade Distribution Comparison
               </h3>

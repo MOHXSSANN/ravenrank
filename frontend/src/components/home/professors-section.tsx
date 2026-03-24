@@ -20,10 +20,10 @@ function ratingColor(rating: number): string {
 
 export function ProfessorsSection({ professors }: { professors: TopProfessor[] }) {
   return (
-    <section className="py-24 px-6 md:px-12 border-t border-border/30">
+    <section className="py-16 md:py-24 px-4 md:px-12 border-t border-border/30">
       <div className="max-w-[1400px] mx-auto">
-        <div className="mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
+        <div className="mb-8 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter">
             Top-rated professors
           </h2>
           <p className="mt-3 text-muted-foreground max-w-[55ch]">
@@ -36,7 +36,7 @@ export function ProfessorsSection({ professors }: { professors: TopProfessor[] }
             <Link
               key={prof.id}
               href={`/professor/${prof.public_id || prof.id}`}
-              className="flex items-center gap-6 py-5 group transition-colors duration-200"
+              className="flex items-center gap-3 sm:gap-6 py-4 sm:py-5 group transition-colors duration-200"
             >
               <span className="text-sm font-mono text-muted-foreground/30 w-6 text-right shrink-0">
                 {i + 1}
@@ -51,7 +51,7 @@ export function ProfessorsSection({ professors }: { professors: TopProfessor[] }
                 </div>
               </div>
 
-              <div className="flex items-center gap-8 shrink-0">
+              <div className="flex items-center gap-4 sm:gap-8 shrink-0">
                 <div className="text-right">
                   <span className={`text-lg font-bold font-mono ${ratingColor(prof.rating)}`}>
                     {prof.rating.toFixed(1)}

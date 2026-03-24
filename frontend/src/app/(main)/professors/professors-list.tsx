@@ -69,7 +69,7 @@ export function ProfessorsList({ professors }: { professors: Prof[] }) {
                       <span className="text-[10px] text-muted-foreground/30">-</span>
                     )}
                   </div>
-                  <span className="text-xs text-muted-foreground/40 font-mono w-20 text-right">
+                  <span className="text-xs text-muted-foreground/40 font-mono w-20 text-right hidden md:block">
                     {prof.num_ratings} ratings
                   </span>
                 </>
