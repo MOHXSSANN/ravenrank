@@ -29,3 +29,14 @@ frontend/public/ravenscroll.mp4
 # Scraper data
 scraper/data/
 scraper/scraper/data/
+
+.vercel
+
+# Local database copies
+*.db
+
+# Dev server logs
+*.log
+
+# FIPPA prep (personal)
+fippa-call-prep.html
