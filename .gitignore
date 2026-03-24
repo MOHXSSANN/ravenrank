@@ -1,0 +1,31 @@
+node_modules/
+.next/
+out/
+build/
+.DS_Store
+__pycache__/
+*.pyc
+.env
+.env.local
+*.egg-info/
+.scrapy/
+
+# Root-level files not needed in repo
+/RMP.jpg
+/rate-my-professors-logo-*.png
+
+# Large video source files at root
+/ravennew.mp4
+/ravenpage.mp4
+/ravenscroll.mp4
+
+# Unused RMP logos (removed from site)
+frontend/public/rmp-logo.*
+
+# Videos in public (will use Git LFS or external CDN later)
+frontend/public/ravenpage.mp4
+frontend/public/ravenscroll.mp4
+
+# Scraper data
+scraper/data/
+scraper/scraper/data/
