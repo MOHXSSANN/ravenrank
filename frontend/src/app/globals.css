@@ -29,19 +29,19 @@
   }
 
   .dark {
-    --background: 220 12% 5%;
+    --background: 220 10% 9%;
     --foreground: 220 5% 90%;
-    --card: 220 10% 8%;
+    --card: 220 8% 12%;
     --card-foreground: 220 5% 90%;
-    --popover: 220 10% 8%;
+    --popover: 220 8% 12%;
     --popover-foreground: 220 5% 90%;
     --primary: 220 5% 90%;
-    --primary-foreground: 220 12% 5%;
-    --secondary: 220 8% 13%;
+    --primary-foreground: 220 10% 9%;
+    --secondary: 220 7% 16%;
     --secondary-foreground: 220 5% 90%;
-    --muted: 220 8% 13%;
+    --muted: 220 7% 16%;
     --muted-foreground: 220 5% 55%;
-    --accent: 220 8% 13%;
+    --accent: 220 7% 16%;
     --accent-foreground: 220 5% 90%;
     --destructive: 0 72% 50%;
     --destructive-foreground: 0 0% 98%;
