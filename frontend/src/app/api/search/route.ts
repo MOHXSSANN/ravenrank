@@ -1,4 +1,4 @@
-import { getDb } from "@/lib/db";
+import { dbAll } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -8,38 +8,34 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ courses: [], professors: [], subjects: [] });
   }
 
-  const db = getDb();
   const searchTerm = `%${query.trim()}%`;
 
-  const courses = db
-    .prepare(
+  const [courses, professors, subjects] = await Promise.all([
+    dbAll(
       `SELECT code, title, subject_code, credits
        FROM courses
        WHERE code LIKE ? OR title LIKE ?
        ORDER BY code
-       LIMIT 8`
-    )
-    .all(searchTerm, searchTerm);
-
-  const professors = db
-    .prepare(
+       LIMIT 8`,
+      [searchTerm, searchTerm]
+    ),
+    dbAll(
       `SELECT id, name, public_id
        FROM professors
        WHERE name LIKE ?
        ORDER BY name
-       LIMIT 6`
-    )
-    .all(searchTerm);
-
-  const subjects = db
-    .prepare(
+       LIMIT 6`,
+      [searchTerm]
+    ),
+    dbAll(
       `SELECT code, title, school, faculty
        FROM subjects
        WHERE code LIKE ? OR title LIKE ?
        ORDER BY code
-       LIMIT 6`
-    )
-    .all(searchTerm, searchTerm);
+       LIMIT 6`,
+      [searchTerm, searchTerm]
+    ),
+  ]);
 
   return NextResponse.json({ courses, professors, subjects });
 }

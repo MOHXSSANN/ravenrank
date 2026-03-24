@@ -4,8 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-export function generateMetadata({ params }: { params: { code: string } }): Metadata {
-  const subject = getSubject(params.code);
+export async function generateMetadata({ params }: { params: { code: string } }): Promise<Metadata> {
+  const subject = await getSubject(params.code);
   if (!subject) return { title: "Subject Not Found" };
   return {
     title: `${subject.code} - ${subject.title}`,
@@ -34,11 +34,11 @@ function computeStats(grades: Record<string, number> | undefined) {
   return { mean: meanLetter, total };
 }
 
-export default function SubjectPage({ params }: { params: { code: string } }) {
-  const subject = getSubject(params.code);
+export default async function SubjectPage({ params }: { params: { code: string } }) {
+  const subject = await getSubject(params.code);
   if (!subject) notFound();
 
-  const courses = getSubjectCourses(params.code);
+  const courses = await getSubjectCourses(params.code);
 
   return (
     <div>

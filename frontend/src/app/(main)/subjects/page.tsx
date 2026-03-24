@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   description: "Browse all academic subjects at Carleton University.",
 };
 
-export default function SubjectsPage() {
-  const subjects = getAllSubjects();
+export default async function SubjectsPage() {
+  const subjects = await getAllSubjects();
 
   // Group by first letter
   const grouped: Record<string, typeof subjects> = {};

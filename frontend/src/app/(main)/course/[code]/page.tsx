@@ -14,8 +14,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-export function generateMetadata({ params }: { params: { code: string } }): Metadata {
-  const course = getCourse(params.code);
+export async function generateMetadata({ params }: { params: { code: string } }): Promise<Metadata> {
+  const course = await getCourse(params.code);
   if (!course) return { title: "Course Not Found" };
   const displayCode = course.code.replace(/(\D+)(\d+)/, "$1 $2");
   return {
@@ -86,17 +86,19 @@ function computeStats(grades: Record<string, number>) {
   return { mean: meanLetter, mode: modeLetter, total };
 }
 
-export default function CoursePage({ params }: { params: { code: string } }) {
-  const course = getCourse(params.code);
+export default async function CoursePage({ params }: { params: { code: string } }) {
+  const course = await getCourse(params.code);
   if (!course) notFound();
 
-  const subject = getSubject(course.subject_code);
-  const aggregateGrades = getCourseAggregateGrades(params.code);
-  const sections = getCourseSections(params.code);
-  const professors = getCourseProfessors(params.code);
-  const professorGrades = getCourseProfessorGrades(params.code) as any[];
-  const stats = aggregateGrades ? computeStats(aggregateGrades as any) : null;
+  const [subject, aggregateGrades, sections, professors, professorGrades] = await Promise.all([
+    getSubject(course.subject_code),
+    getCourseAggregateGrades(params.code),
+    getCourseSections(params.code),
+    getCourseProfessors(params.code),
+    getCourseProfessorGrades(params.code),
+  ]);
 
+  const stats = aggregateGrades ? computeStats(aggregateGrades as any) : null;
   const displayCode = course.code.replace(/(\D+)(\d+)/, "$1 $2");
 
   return (
@@ -147,7 +149,7 @@ export default function CoursePage({ params }: { params: { code: string } }) {
           )}
 
           {/* Grade Comparison */}
-          <GradeComparison professorGrades={professorGrades} />
+          <GradeComparison professorGrades={professorGrades as any[]} />
         </div>
 
         {/* Right: Course info sidebar */}

@@ -27,6 +27,16 @@ export default function AboutPage() {
         </p>
 
         <h2 className="text-xl font-semibold tracking-tight pt-4">
+          100% free, forever
+        </h2>
+        <p>
+          RavenRank is completely free for all students and always will be.
+          There are no paywalls, no premium tiers, no subscriptions, and no ads.
+          This project was built to help Carleton students, not to make money.
+          Nobody should have to pay just to look up course information.
+        </p>
+
+        <h2 className="text-xl font-semibold tracking-tight pt-4">
           Why this exists
         </h2>
         <p>
@@ -56,6 +66,23 @@ export default function AboutPage() {
             University.
           </li>
         </ul>
+
+        <h2 className="text-xl font-semibold tracking-tight pt-4">
+          Support the project
+        </h2>
+        <p>
+          If you find RavenRank useful and want to support its development,
+          you can buy me a coffee. This is entirely optional and the site will
+          always remain free regardless.
+        </p>
+        <a
+          href="https://buymeacoffee.com/duddus"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#FFDD00] text-black font-medium text-sm hover:bg-[#FFDD00]/90 transition-colors duration-200"
+        >
+          Buy me a coffee
+        </a>
 
         <h2 className="text-xl font-semibold tracking-tight pt-4">
           Disclaimer

@@ -5,8 +5,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-export function generateMetadata({ params }: { params: { id: string } }): Metadata {
-  const professor = getProfessor(parseInt(params.id));
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const professor = await getProfessor(parseInt(params.id));
   if (!professor) return { title: "Professor Not Found" };
   return {
     title: professor.name,
@@ -57,11 +57,11 @@ function difficultyColor(diff: number): string {
   return "text-red-400";
 }
 
-export default function ProfessorPage({ params }: { params: { id: string } }) {
-  const professor = getProfessor(parseInt(params.id));
+export default async function ProfessorPage({ params }: { params: { id: string } }) {
+  const professor = await getProfessor(parseInt(params.id));
   if (!professor) notFound();
 
-  const courses = getProfessorCourses(professor.id);
+  const courses = await getProfessorCourses(professor.id);
   const rmp = professor.rmpReview;
   const tags = parseTags(rmp?.tags);
   const wouldTakeAgain = rmp?.would_take_again;

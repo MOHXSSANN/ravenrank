@@ -1,18 +1,38 @@
-import Database from "better-sqlite3";
+import { createClient, type Client, type Row } from "@libsql/client";
 import path from "path";
 
-const DB_PATH =
-  process.env.DATABASE_PATH ||
-  path.join(process.cwd(), "..", "scraper", "data", "ravenrank.db");
+let client: Client | null = null;
 
-let db: Database.Database | null = null;
-
-export function getDb(): Database.Database {
-  if (!db) {
-    db = new Database(DB_PATH, { readonly: true });
-    db.pragma("journal_mode = WAL");
+function getClient(): Client {
+  if (!client) {
+    if (process.env.TURSO_DATABASE_URL) {
+      // Production: connect to Turso
+      client = createClient({
+        url: process.env.TURSO_DATABASE_URL,
+        authToken: process.env.TURSO_AUTH_TOKEN,
+      });
+    } else {
+      // Local dev: use SQLite file
+      const dbPath = path.join(process.cwd(), "..", "scraper", "data", "ravenrank.db");
+      client = createClient({
+        url: `file:${dbPath}`,
+      });
+    }
   }
-  return db;
+  return client;
+}
+
+// Synchronous-style wrapper for server components
+// @libsql/client execute() is async, so we need helpers
+
+export async function dbAll<T = Row>(sql: string, args: any[] = []): Promise<T[]> {
+  const result = await getClient().execute({ sql, args });
+  return result.rows as unknown as T[];
+}
+
+export async function dbGet<T = Row>(sql: string, args: any[] = []): Promise<T | undefined> {
+  const result = await getClient().execute({ sql, args });
+  return result.rows[0] as unknown as T | undefined;
 }
 
 // Type definitions matching our schema
@@ -49,8 +69,8 @@ export interface RmpReview {
   would_take_again: number | null;
   department: string | null;
   link: string | null;
-  tags: string; // JSON string of [{name, count}]
-  courses_taught: string; // JSON string of [{name, count}]
+  tags: string;
+  courses_taught: string;
 }
 
 export interface RmpTag {
