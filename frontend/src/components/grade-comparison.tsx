@@ -105,14 +105,14 @@ function ComparisonChart({
               {profData.map((prof, profIdx) => (
                 <motion.div
                   key={prof.id}
-                  className="h-4 rounded-sm relative group"
+                  className="h-4 rounded-sm relative group cursor-pointer"
                   style={{ backgroundColor: colors[profIdx % colors.length] }}
                   initial={{ width: 0 }}
                   animate={{ width: `${(prof.pcts[gradeIdx] / maxPct) * 100}%` }}
                   transition={{ duration: 0.5, delay: gradeIdx * 0.03 + profIdx * 0.05 }}
                 >
-                  <div className="absolute inset-0 flex items-center pl-2 text-[10px] font-medium text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                    {prof.pcts[gradeIdx].toFixed(1)}%
+                  <div className="absolute bottom-full left-0 mb-1 px-2 py-1 rounded bg-background border border-border text-xs font-medium text-foreground opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10 shadow-lg">
+                    {prof.name} — {prof.pcts[gradeIdx].toFixed(1)}%
                   </div>
                 </motion.div>
               ))}
