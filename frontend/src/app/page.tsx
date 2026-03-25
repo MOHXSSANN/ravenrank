@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { HeroSection } from "@/components/hero/hero-section";
 import { ScrollVideoSection } from "@/components/home/scroll-video-section";
@@ -79,9 +80,9 @@ export default async function Home() {
     <main>
       <header className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-sm border-b border-border/50">
         <div className="max-w-[1400px] mx-auto px-4 md:px-12 h-14 flex items-center gap-4 md:gap-6">
-          <Link href="/" className="text-lg font-bold tracking-tight shrink-0">
-            <span className="text-raven">Raven</span>
-            <span>Rank</span>
+          <Link href="/" className="text-lg font-bold tracking-tight shrink-0 flex items-center gap-2">
+            <Image src="/logo.png" alt="RavenRank" width={28} height={28} />
+            <span><span className="text-raven">Raven</span><span>Rank</span></span>
           </Link>
           <nav className="hidden sm:flex items-center gap-5 text-sm text-muted-foreground">
             <Link href="/subjects" className="hover:text-foreground transition-colors duration-200">
