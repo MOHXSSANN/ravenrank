@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="max-w-[640px]">
-      <Image src="/logo.png" alt="RavenRank" width={160} height={160} className="mb-8" />
+      <Image src="/logo.png" alt="RavenRank" width={300} height={300} className="mb-8" />
       <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-none">
         About
       </h1>
