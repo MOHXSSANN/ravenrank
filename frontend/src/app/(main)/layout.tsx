@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { SearchTrigger } from "@/components/search-trigger";
 
@@ -6,9 +7,9 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     <div className="min-h-[100dvh]">
       <header className="sticky top-0 z-40 border-b border-border bg-background">
         <div className="max-w-[1400px] mx-auto px-4 md:px-12 h-14 flex items-center gap-3 md:gap-6">
-          <Link href="/" className="text-lg font-bold tracking-tight shrink-0">
-            <span className="text-raven">Raven</span>
-            <span>Rank</span>
+          <Link href="/" className="text-lg font-bold tracking-tight shrink-0 flex items-center gap-2">
+            <Image src="/logo.png" alt="RavenRank" width={28} height={28} />
+            <span><span className="text-raven">Raven</span><span>Rank</span></span>
           </Link>
           <nav className="hidden sm:flex items-center gap-5 text-sm text-muted-foreground shrink-0">
             <Link href="/" className="hover:text-foreground transition-colors duration-200">
