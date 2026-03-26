@@ -56,6 +56,7 @@ export function ScrollVideoSection() {
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    ctx.imageSmoothingQuality = "high";
 
     // Size canvas to the viewport (CSS pixels * devicePixelRatio for sharpness)
     const dpr = window.devicePixelRatio || 1;
