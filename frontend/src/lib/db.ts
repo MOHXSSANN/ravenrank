@@ -7,14 +7,26 @@ function toPgParams(query: string): string {
   return query.replace(/\?/g, () => `$${++i}`);
 }
 
+function coerceRow(row: Record<string, unknown>): Record<string, unknown> {
+  const out: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(row)) {
+    if (typeof v === "string" && v !== "" && !isNaN(Number(v))) {
+      out[k] = Number(v);
+    } else {
+      out[k] = v;
+    }
+  }
+  return out;
+}
+
 export async function dbAll<T = Record<string, unknown>>(query: string, args: unknown[] = []): Promise<T[]> {
   const rows = await sql(toPgParams(query), args);
-  return rows as T[];
+  return rows.map(coerceRow) as T[];
 }
 
 export async function dbGet<T = Record<string, unknown>>(query: string, args: unknown[] = []): Promise<T | undefined> {
   const rows = await sql(toPgParams(query), args);
-  return rows[0] as T | undefined;
+  return rows[0] ? coerceRow(rows[0] as Record<string, unknown>) as T : undefined;
 }
 
 export interface Subject {
