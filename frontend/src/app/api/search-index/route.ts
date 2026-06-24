@@ -29,7 +29,7 @@ export async function GET() {
     { courses, professors, subjects },
     {
       headers: {
-        "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400",
+        "Cache-Control": "no-store",
       },
     }
   );
