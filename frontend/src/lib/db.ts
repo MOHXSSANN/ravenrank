@@ -2,13 +2,18 @@ import { neon } from "@neondatabase/serverless";
 
 const sql = neon(process.env.DATABASE_URL!);
 
+function toPgParams(query: string): string {
+  let i = 0;
+  return query.replace(/\?/g, () => `$${++i}`);
+}
+
 export async function dbAll<T = Record<string, unknown>>(query: string, args: unknown[] = []): Promise<T[]> {
-  const rows = await sql(query, args);
+  const rows = await sql(toPgParams(query), args);
   return rows as T[];
 }
 
 export async function dbGet<T = Record<string, unknown>>(query: string, args: unknown[] = []): Promise<T | undefined> {
-  const rows = await sql(query, args);
+  const rows = await sql(toPgParams(query), args);
   return rows[0] as T | undefined;
 }
 
