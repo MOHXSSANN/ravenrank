@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 interface Prof {
   id: number;
@@ -24,13 +24,43 @@ function ratingColor(rating: number): string {
 }
 
 export function ProfessorsList({ professors }: { professors: Prof[] }) {
+  const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(PAGE_SIZE);
 
-  const shown = professors.slice(0, visible);
-  const hasMore = visible < professors.length;
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return professors;
+    return professors.filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        (p.department && p.department.toLowerCase().includes(q))
+    );
+  }, [professors, query]);
+
+  const shown = filtered.slice(0, visible);
+  const hasMore = visible < filtered.length;
+
+  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
+    setQuery(e.target.value);
+    setVisible(PAGE_SIZE);
+  }
 
   return (
     <>
+      <div className="mb-6">
+        <input
+          type="text"
+          placeholder="Search by name or department…"
+          value={query}
+          onChange={handleSearch}
+          className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-raven/50"
+        />
+        {query && (
+          <p className="mt-2 text-xs text-muted-foreground">
+            {filtered.length.toLocaleString()} result{filtered.length !== 1 ? "s" : ""}
+          </p>
+        )}
+      </div>
       <div className="divide-y divide-border">
         {shown.map((prof) => (
           <Link
@@ -58,38 +88,30 @@ export function ProfessorsList({ professors }: { professors: Prof[] }) {
                     <span className="text-[10px] text-muted-foreground/50 ml-1">/ 5</span>
                   </div>
                   <div className="text-right w-20 hidden sm:block">
-                    {prof.would_take_again != null && prof.would_take_again >= 0 ? (
-                      <>
-                        <span className="font-mono text-sm text-muted-foreground">
-                          {Math.round(prof.would_take_again)}%
-                        </span>
-                        <span className="text-[10px] text-muted-foreground/40 ml-1">again</span>
-                      </>
-                    ) : (
-                      <span className="text-[10px] text-muted-foreground/30">-</span>
-                    )}
+                    <span className="text-xs text-muted-foreground">
+                      {prof.num_ratings?.toLocaleString()} ratings
+                    </span>
                   </div>
-                  <span className="text-xs text-muted-foreground/40 font-mono w-20 text-right hidden md:block">
-                    {prof.num_ratings} ratings
-                  </span>
                 </>
               ) : (
-                <span className="text-xs text-muted-foreground/30">No ratings</span>
+                <div className="text-xs text-muted-foreground/40 w-36 text-right hidden sm:block">
+                  No ratings yet
+                </div>
               )}
             </div>
           </Link>
         ))}
+        {filtered.length === 0 && (
+          <p className="py-8 text-center text-muted-foreground text-sm">No professors found.</p>
+        )}
       </div>
-
       {hasMore && (
-        <div className="mt-8 text-center">
-          <button
-            onClick={() => setVisible((v) => v + PAGE_SIZE)}
-            className="px-6 py-2.5 text-sm font-medium text-muted-foreground bg-secondary/50 hover:bg-secondary border border-border/50 rounded-xl transition-colors duration-200"
-          >
-            Show more ({(professors.length - visible).toLocaleString()} remaining)
-          </button>
-        </div>
+        <button
+          onClick={() => setVisible((v) => v + PAGE_SIZE)}
+          className="mt-6 w-full rounded-lg border border-border py-2.5 text-sm text-muted-foreground hover:bg-muted transition-colors duration-200"
+        >
+          Load more ({filtered.length - visible} remaining)
+        </button>
       )}
     </>
   );
