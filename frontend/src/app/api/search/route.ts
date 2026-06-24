@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     dbAll(
       `SELECT code, title, subject_code, credits
        FROM courses
-       WHERE code LIKE ? OR title LIKE ?
+       WHERE code ILIKE ? OR title ILIKE ?
        ORDER BY code
        LIMIT 8`,
       [searchTerm, searchTerm]
@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
     dbAll(
       `SELECT id, name, public_id
        FROM professors
-       WHERE name LIKE ?
+       WHERE name ILIKE ?
        ORDER BY name
        LIMIT 6`,
       [searchTerm]
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     dbAll(
       `SELECT code, title, school, faculty
        FROM subjects
-       WHERE code LIKE ? OR title LIKE ?
+       WHERE code ILIKE ? OR title ILIKE ?
        ORDER BY code
        LIMIT 6`,
       [searchTerm, searchTerm]
